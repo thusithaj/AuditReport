@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuditReports", "AuditReports\AuditReports.csproj", "{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\..\FertilizerIssue\DataAccess\DataAccess.csproj", "{B0BE111A-6941-412F-A6D7-E77429214AC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{B0BE111A-6941-412F-A6D7-E77429214AC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +19,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x64.Build.0 = Debug|Any CPU
+		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x64.ActiveCfg = Debug|x64
+		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x64.Build.0 = Debug|x64
 		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Debug|x86.Build.0 = Debug|Any CPU
 		{8E476A61-A8C2-4905-9E33-77C4E8AB83A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
