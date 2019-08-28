@@ -87,17 +87,17 @@ namespace DataAccess
             return SavingData;
         }
 
-        public void CommitSavingPayment(DataTable table)
-        {
-            if (!TableExisits("SavingLedger"))
-            {
-                CreateSavingLedgerTable();
+        //public void CommitSavingPayment(DataTable table)
+        //{
+        //    if (!TableExisits("SavingLedger"))
+        //    {
+        //        CreateSavingLedgerTable();
 
-            }
-            Task task = DBAccess.ExecuteSavingTransaction(0, table);
-            task.Wait();
-            //task.
-        }
+        //    }
+        //    Task task = DBAccess.ExecuteSavingTransaction(0, table);
+        //    task.Wait();
+        //    //task.
+        //}
 
         public void CreateSavingLedgerTable()
         {

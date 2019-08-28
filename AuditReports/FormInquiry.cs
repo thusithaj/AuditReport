@@ -27,6 +27,14 @@ namespace AuditReports
         int selectedSupplier = 0;
         Route selRoute;
         string rtFilter;
+
+        public class FiscalPeriod
+        {
+            public string month { get; set; }
+            public string AccountName { get; set; }
+        }
+
+        List<FiscalPeriod> fiscalPeriods;
         public FormInquiry()
         {
             InitializeComponent();
@@ -35,7 +43,87 @@ namespace AuditReports
         private void FormInquiry_Load(object sender, EventArgs e)
         {
             LoadRoutes();
+            LoadFiscalPeriods();
         }
+
+        private void LoadFiscalPeriods()
+        {
+            fiscalPeriods = new List<FiscalPeriod>();
+            if (stock == null)
+                stock = new StockController();
+            foreach( DataRow dr in stock.GetFiscalAccount().Rows)
+            {
+                FiscalPeriod period = new FiscalPeriod();
+                if ( dr[0].ToString().Contains("JANUARY"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("FEBRUARY"))
+                {
+                    period.month = dr[1].ToString(); 
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("MARCH"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("APRIL"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("MAY"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("JUNE"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("JULY"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("AUGUST"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("SEPTEMBER"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("OCTOBER"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("NOVEMBER"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+                if (dr[0].ToString().Contains("DECEMBER"))
+                {
+                    period.month = dr[1].ToString();
+                    period.AccountName = dr[0].ToString();
+                }
+
+                fiscalPeriods.Add(period);
+            }
+            //fiscalPeriods= fiscalPeriods.OrderByDescending(o => o.month).ToList();
+            cbAcc.DataSource = fiscalPeriods;
+            cbAcc.DisplayMember = "AccountName";
+            cbAcc.ValueMember = "month";
+            //throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Load suppliers
         /// </summary>

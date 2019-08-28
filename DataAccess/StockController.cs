@@ -1095,10 +1095,11 @@ namespace DataAccess
 
         public DataTable GetFiscalAccount()
         {
-            strsql = "SELECT DISTINCT drAcc FROM Advance_File WHERE(drAcc LIKE '%2019%')";
-            dB = new DBAccess();
+            strsql = " SELECT    AcName,  AcCode   FROM            Accounts_2019.dbo.Account_List " +
+                " WHERE        (AcCode LIKE '1-203%') Order by AcCode";
+                //"SELECT DISTINCT ACName FROM Accounts_2019.dbo.Account_List  WHERE(AcCode LIKE '[1-203%]'";
             data = new DataTable();
-            data = dB.GetDataTable(strsql, DBAccess.GL);
+            data = dB.GetDataTable(strsql, DBAccess.BoughtLeaf);
 
             return data;
         }

@@ -34,11 +34,11 @@ namespace DataAccess
         public SqlCommand command;
 
 
-        static string oledbBLCnStr;
-        static string oledbINVCnStr;
-        static string oledbBLPrvCnStr;
-        static string oleDBGLCnstr;
-        static string sqlcn;
+        string oledbBLCnStr;
+        string oledbINVCnStr;
+        string oledbBLPrvCnStr;
+        string oleDBGLCnstr;
+        string sqlcn;
         public string blDBname { get; set; }
         public string blPrvBDname { get; set; }
         public string InvDBname { get; set; }
@@ -52,11 +52,12 @@ namespace DataAccess
             oleDbINVCn = new OleDbConnection();
             oleDBGLcn = new OleDbConnection();
             connection = new SqlConnection();
-            oledbBLCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["BLConnection"].ConnectionString;
+            SetCnString();
+            //oledbBLCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["BLConnection"].ConnectionString;
             //oledbINVCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["StockConnection"].ConnectionString;
             //oledbBLPrvCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["BLPrvConnection"].ConnectionString;
-            oleDBGLCnstr = System.Configuration.ConfigurationManager.ConnectionStrings["GLConnection"].ConnectionString;
-            sqlcn = System.Configuration.ConfigurationManager.ConnectionStrings["AuditConnection"].ConnectionString;
+            //oleDBGLCnstr = System.Configuration.ConfigurationManager.ConnectionStrings["GLConnection"].ConnectionString;
+            //sqlcn = System.Configuration.ConfigurationManager.ConnectionStrings["AuditConnection"].ConnectionString;
             command = new SqlCommand();
             oleDBBLPrvCn.ConnectionString = oledbBLPrvCnStr;
             oleDbBLCn.ConnectionString = oledbBLCnStr;
@@ -66,6 +67,15 @@ namespace DataAccess
 
         }
 
+        private void SetCnString()
+        {
+            oledbBLCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["BLConnection"].ConnectionString;
+            oledbINVCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["StockConnection"].ConnectionString;
+            oledbBLPrvCnStr = System.Configuration.ConfigurationManager.ConnectionStrings["BLPrvConnection"].ConnectionString;
+            oleDBGLCnstr = System.Configuration.ConfigurationManager.ConnectionStrings["GLConnection"].ConnectionString;
+            sqlcn = System.Configuration.ConfigurationManager.ConnectionStrings["AuditConnection"].ConnectionString;
+
+        }
         public DataTable GetDataTable(string strsql, int conType)
         {
             oleDbCmd.CommandText = strsql;
@@ -252,70 +262,70 @@ namespace DataAccess
 
         
 
-        public static async Task ExecuteSavingTransaction(int conType, DataTable dataTable)
-        {
-            string connectionString = oledbBLCnStr;
+        //public static async Task ExecuteSavingTransaction(int conType, DataTable dataTable)
+        //{
+        //    //string connectionString = oledbBLCnStr;
             
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                await connection.OpenAsync();
+        //    using (OleDbConnection connection = new OleDbConnection(connectionString))
+        //    {
+        //        await connection.OpenAsync();
 
-                OleDbCommand command = connection.CreateCommand();
-                OleDbTransaction transaction = null;
+        //        OleDbCommand command = connection.CreateCommand();
+        //        OleDbTransaction transaction = null;
 
-                // Start a local transaction.
-                //transaction = await Task.Run<OleDbTransaction>(
-                //    () => connection.BeginTransaction()
-                //    );
-                //transaction = connection.BeginTransaction();
+        //        // Start a local transaction.
+        //        //transaction = await Task.Run<OleDbTransaction>(
+        //        //    () => connection.BeginTransaction()
+        //        //    );
+        //        //transaction = connection.BeginTransaction();
 
-                // Must assign both transaction object and connection
-                // to Command object for a pending local transaction
-                //command.Connection = connection;
-                //command.Transaction = transaction;
+        //        // Must assign both transaction object and connection
+        //        // to Command object for a pending local transaction
+        //        //command.Connection = connection;
+        //        //command.Transaction = transaction;
 
-                try
-                {
-                    foreach (DataRow dr in dataTable.Rows)
-                    {
-                        transaction = connection.BeginTransaction();
-                        command.Connection = connection;
-                        command.Transaction = transaction;
-                        command.CommandText = " INSERT INTO SavingLedger(RegNo,RegName,Route,ItemName,Amount,Unit, ItemOrder,Qty,MainCategory)" +
-                            " VALUES ( " + int.Parse(dr["RegNo"].ToString()) + ",'" + dr["RegName"].ToString() + "','"  + dr["Route"].ToString() +"','" +
-                            dr["ItemName"].ToString() +"'," + double.Parse(dr["Amount"].ToString()) +",' '," + int.Parse(dr["ItemOrder"].ToString()) + "," +
-                            0 +",'" + dr["MainCategory"].ToString() +"')";
+        //        try
+        //        {
+        //            foreach (DataRow dr in dataTable.Rows)
+        //            {
+        //                transaction = connection.BeginTransaction();
+        //                command.Connection = connection;
+        //                command.Transaction = transaction;
+        //                command.CommandText = " INSERT INTO SavingLedger(RegNo,RegName,Route,ItemName,Amount,Unit, ItemOrder,Qty,MainCategory)" +
+        //                    " VALUES ( " + int.Parse(dr["RegNo"].ToString()) + ",'" + dr["RegName"].ToString() + "','"  + dr["Route"].ToString() +"','" +
+        //                    dr["ItemName"].ToString() +"'," + double.Parse(dr["Amount"].ToString()) +",' '," + int.Parse(dr["ItemOrder"].ToString()) + "," +
+        //                    0 +",'" + dr["MainCategory"].ToString() +"')";
                        
 
-                        // Attempt to commit the transaction.
-                        await command.ExecuteNonQueryAsync();
-                        transaction.Commit();
-                        //await Task.Run(() => transaction.Commit());
-                        //Console.WriteLine("Records are written to database.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                    Console.WriteLine("  Message: {0}", ex.Message);
+        //                // Attempt to commit the transaction.
+        //                await command.ExecuteNonQueryAsync();
+        //                transaction.Commit();
+        //                //await Task.Run(() => transaction.Commit());
+        //                //Console.WriteLine("Records are written to database.");
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+        //            Console.WriteLine("  Message: {0}", ex.Message);
 
-                    // Attempt to roll back the transaction.
-                    try
-                    {
-                        transaction.Rollback();
-                    }
-                    catch (Exception ex2)
-                    {
-                        // This catch block will handle any errors that may have occurred
-                        // on the server that would cause the rollback to fail, such as
-                        // a closed connection.
-                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
-                        Console.WriteLine("  Message: {0}", ex2.Message);
-                        throw ex2;
-                    }
-                }
-            }
-        }
+        //            // Attempt to roll back the transaction.
+        //            try
+        //            {
+        //                transaction.Rollback();
+        //            }
+        //            catch (Exception ex2)
+        //            {
+        //                // This catch block will handle any errors that may have occurred
+        //                // on the server that would cause the rollback to fail, such as
+        //                // a closed connection.
+        //                Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+        //                Console.WriteLine("  Message: {0}", ex2.Message);
+        //                throw ex2;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
 //command.Parameters.Add(new OleDbParameter("@RegNo", OleDbType.Integer)).Value = int.Parse(dr["RegNo"].ToString());
