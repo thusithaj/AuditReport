@@ -1059,17 +1059,17 @@ namespace DataAccess
 
         //}
 
-        public DataTable GetAdvanceSummary(string route, int nMonth, int ncycle)
+        public DataTable GetAdvanceSummary(string route, string DebitAcc, int ncycle)
         {
             //DataTable advsum = new DataTable();
             //strsql = " SELECT        m.TrID, m.trDate, m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1 " +
             //        " FROM Ac_TrMain AS m INNER JOIN " +
             //        "     LedgerBl.dbo.Main_Reg AS r ON m.RegNo = r.regNo " +
             //        " WHERE(m.trType = 'TR') ";
-            strsql = "SELECT        m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1, COUNT(m.RegNo) AS cycle" +
+            strsql = "SELECT        m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1, COUNT(m.RegNo) AS cycle, Sum(Amount) TotalAdvance " +
                 " FROM            Ac_TrMain AS m INNER JOIN  LedgerBl.dbo.Main_Reg AS r ON m.RegNo = r.regNo" +
-                " INNER JOIN Advance_File A on a.ListId = m.ListId " +
-                "   WHERE        (m.trType = 'TR')  AND routeName LIKE '" + route +"%'" +
+                " INNER JOIN LedgerBl.dbo.Advance_File A on a.ListId = m.ListId " +
+                "   WHERE        (m.trType = 'TR')  AND routeName LIKE '" + route +"%' AND A.drAcc Like '" + DebitAcc +"%'"+
                 "   GROUP BY m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1 " +
                 " HAVING COUNT(m.RegNo) >= " + ncycle;
             dB = new DBAccess();
@@ -1079,13 +1079,13 @@ namespace DataAccess
             return data;
         }
 
-        public DataTable GetAdvanceDetail( int nSupplier, int nMonth)
+        public DataTable GetAdvanceDetail( int nSupplier, string DebitAcc)
         {
-            strsql = " SELECT        m.TrID, m.trDate, m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1 " +
-                    " FROM Ac_TrMain AS m INNER JOIN " +
-                    "     LedgerBl.dbo.Main_Reg AS r ON m.RegNo = r.regNo " +
-                    " WHERE(m.trType = 'TR')  AND RegNo =" + nSupplier + " AND MONTH(m.TrDate) = " + nMonth ;
-
+            strsql = "SELECT        m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1, m.TrId VoucherNo,m.TrDate [Trn.Data],  m.Amount Advance" +
+               " , r.Fertilizer, r.LMB PrevDebt FROM            Ac_TrMain AS m INNER JOIN  LedgerBl.dbo.Main_Reg AS r ON m.RegNo = r.regNo" +
+               " INNER JOIN LedgerBl.dbo.Advance_File A on a.ListId = m.ListId " +
+               "   WHERE        (m.trType = 'TR')  AND m.RegNo = " + nSupplier + " AND A.drAcc Like '" + DebitAcc + "%'" +
+               " Order by m.TrDate ";
             dB = new DBAccess();
             data = new DataTable();
             data = dB.GetDataTable(strsql, DBAccess.GL);

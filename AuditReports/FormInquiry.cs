@@ -27,6 +27,7 @@ namespace AuditReports
         int selectedSupplier = 0;
         Route selRoute;
         string rtFilter;
+        string accFilter = "";
 
         public class FiscalPeriod
         {
@@ -189,6 +190,7 @@ namespace AuditReports
             {
                 rtFilter = selRoute.rName.Trim() + '%';
             }
+            
             ShowAdvanceSUmmary();
 
         }
@@ -198,7 +200,23 @@ namespace AuditReports
             //throw new NotImplementedException();
             if (stock == null)
                 stock = new StockController();
-            dgvAdvSumm.DataSource = stock.GetAdvanceSummary(rtFilter, 0, (int)nCycle.Value);
+            dgvAdvSumm.DataSource = stock.GetAdvanceSummary(rtFilter, accFilter, (int)nCycle.Value);
+        }
+
+        private void cbAcc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FiscalPeriod period = new FiscalPeriod();
+            if (cbAcc.SelectedItem != null)
+            {
+                period = (FiscalPeriod)cbAcc.SelectedItem;
+                accFilter = period.AccountName;
+            }
+        }
+
+        private void bClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
         }
     }
 }

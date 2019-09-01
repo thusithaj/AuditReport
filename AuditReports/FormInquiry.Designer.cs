@@ -95,6 +95,7 @@
             this.cbAcc.Name = "cbAcc";
             this.cbAcc.Size = new System.Drawing.Size(205, 21);
             this.cbAcc.TabIndex = 17;
+            this.cbAcc.SelectedIndexChanged += new System.EventHandler(this.cbAcc_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -116,6 +117,7 @@
             this.bClose.Text = "Close";
             this.bClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bClose.UseVisualStyleBackColor = true;
+            this.bClose.Click += new System.EventHandler(this.bClose_Click);
             // 
             // bPrint
             // 
