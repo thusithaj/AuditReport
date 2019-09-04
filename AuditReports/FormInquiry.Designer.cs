@@ -45,24 +45,31 @@
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.lPer = new System.Windows.Forms.Label();
             this.dgvAdvSumm = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.nTotalAdvance = new System.Windows.Forms.NumericUpDown();
+            this.ltotAdv = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nCycle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdvSumm)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nTotalAdvance)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dgvAdvSumm, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.77778F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.22222F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(940, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -85,7 +92,7 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(934, 83);
+            this.panel1.Size = new System.Drawing.Size(934, 73);
             this.panel1.TabIndex = 0;
             // 
             // cbAcc
@@ -225,12 +232,52 @@
             // 
             // dgvAdvSumm
             // 
+            this.dgvAdvSumm.AllowUserToAddRows = false;
             this.dgvAdvSumm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdvSumm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAdvSumm.Location = new System.Drawing.Point(3, 92);
+            this.dgvAdvSumm.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvAdvSumm.Location = new System.Drawing.Point(3, 82);
             this.dgvAdvSumm.Name = "dgvAdvSumm";
-            this.dgvAdvSumm.Size = new System.Drawing.Size(934, 355);
+            this.dgvAdvSumm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAdvSumm.Size = new System.Drawing.Size(934, 314);
             this.dgvAdvSumm.TabIndex = 1;
+            this.dgvAdvSumm.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdvSumm_CellDoubleClick);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.ltotAdv);
+            this.panel2.Controls.Add(this.nTotalAdvance);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(3, 408);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(934, 39);
+            this.panel2.TabIndex = 2;
+            // 
+            // nTotalAdvance
+            // 
+            this.nTotalAdvance.DecimalPlaces = 2;
+            this.nTotalAdvance.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nTotalAdvance.Location = new System.Drawing.Point(656, 10);
+            this.nTotalAdvance.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            131072});
+            this.nTotalAdvance.Name = "nTotalAdvance";
+            this.nTotalAdvance.Size = new System.Drawing.Size(196, 24);
+            this.nTotalAdvance.TabIndex = 0;
+            this.nTotalAdvance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.nTotalAdvance.ThousandsSeparator = true;
+            // 
+            // ltotAdv
+            // 
+            this.ltotAdv.AutoSize = true;
+            this.ltotAdv.Location = new System.Drawing.Point(526, 12);
+            this.ltotAdv.Name = "ltotAdv";
+            this.ltotAdv.Size = new System.Drawing.Size(124, 18);
+            this.ltotAdv.TabIndex = 1;
+            this.ltotAdv.Text = "Total Advance :";
             // 
             // FormInquiry
             // 
@@ -247,6 +294,9 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nCycle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdvSumm)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nTotalAdvance)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -269,5 +319,8 @@
         private System.Windows.Forms.Button bClose;
         private System.Windows.Forms.ComboBox cbAcc;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label ltotAdv;
+        private System.Windows.Forms.NumericUpDown nTotalAdvance;
     }
 }

@@ -113,6 +113,7 @@
     <Compile Include="Supplier.cs" />
     <Compile Include="Transfer.cs" />
     <Compile Include="TransferNN.cs" />
+    <Compile Include="UserSecurity.cs" />
     <Compile Include="Vehicle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

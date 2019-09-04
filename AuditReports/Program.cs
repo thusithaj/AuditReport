@@ -17,7 +17,11 @@ namespace AuditReports
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new MasterForm());
+            Application.Run(new FormUserLogin());
+            if ( RuntimeDefaults.LoggedStatus)
+            {
+                Application.Run(new MasterForm());
+            }
         }
     }
 }

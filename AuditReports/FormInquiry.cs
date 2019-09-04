@@ -190,7 +190,7 @@ namespace AuditReports
             {
                 rtFilter = selRoute.rName.Trim() + '%';
             }
-            
+            nTotalAdvance.Value = 0;
             ShowAdvanceSUmmary();
 
         }
@@ -201,6 +201,10 @@ namespace AuditReports
             if (stock == null)
                 stock = new StockController();
             dgvAdvSumm.DataSource = stock.GetAdvanceSummary(rtFilter, accFilter, (int)nCycle.Value);
+            foreach ( DataGridViewRow dvr in dgvAdvSumm.Rows)
+            {
+                nTotalAdvance.Value = nTotalAdvance.Value + decimal.Parse(dvr.Cells["TotalAdvance"].Value.ToString());
+            }
         }
 
         private void cbAcc_SelectedIndexChanged(object sender, EventArgs e)
@@ -210,6 +214,7 @@ namespace AuditReports
             {
                 period = (FiscalPeriod)cbAcc.SelectedItem;
                 accFilter = period.AccountName;
+                nTotalAdvance.Value = 0;
             }
         }
 
@@ -217,6 +222,40 @@ namespace AuditReports
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void dgvAdvSumm_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FormAdvanceDetails form;// = new FormAdvanceDetails();
+            if (dgvAdvSumm.Rows.Count > 0)
+            {
+                DataGridViewRow drv = dgvAdvSumm.Rows[e.RowIndex];
+                
+                form = new FormAdvanceDetails();
+                form.Owner = this;
+                form.SupplierNo = int.Parse(drv.Cells["RegNo"].Value.ToString());
+                form.DebitAcc = accFilter;
+                form.Advance = decimal.Parse(drv.Cells["TotalAdvance"].Value.ToString());
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.ShowDialog();
+                form.Focus();
+                //if (this.OwnedForms.Count<Form>() == 0 && this.OwnedForms[1].IsDisposed)
+                //{}
+                //else
+                //{
+                //    form = (FormAdvanceDetails) this.OwnedForms[0];
+                //    form.SupplierNo = int.Parse(drv.Cells["RegNo"].Value.ToString());
+                //    form.DebitAcc = accFilter;
+                //    form.Advance = decimal.Parse(drv.Cells["TotalAdvance"].Value.ToString());
+                //    form.Activate();
+                //    form.ShowDialog();
+                //    form.Focus();
+                //}
+                
+               
+            }
+
+
         }
     }
 }

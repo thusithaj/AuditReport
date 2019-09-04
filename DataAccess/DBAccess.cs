@@ -25,6 +25,7 @@ namespace DataAccess
         public const int Inventory = 1;
         public const int BLHistory = 2;
         public const int GL = 3;
+        public const int AUDIT = 4;
         public OleDbCommand oleDbCmd;
         public OleDbConnection oleDbBLCn;
         public OleDbConnection oleDbINVCn;
@@ -63,6 +64,7 @@ namespace DataAccess
             oleDbBLCn.ConnectionString = oledbBLCnStr;
             //oleDbINVCn.ConnectionString = oledbINVCnStr;
             oleDBGLcn.ConnectionString = oleDBGLCnstr;
+            connection.ConnectionString = sqlcn;
             SetDBname();
 
         }
@@ -88,13 +90,29 @@ namespace DataAccess
                 oleDbCmd.Connection = oleDBBLPrvCn;
             if (conType == 3)
                 oleDbCmd.Connection = oleDBGLcn;
+            if (conType == 4)
+            {
+                command.CommandText = strsql;
+                command.Connection = connection;
+
+            }
             //table = oleDbCmd.ExecuteReader()
-            OleDbDataAdapter oleda = new OleDbDataAdapter();
-            oleda.SelectCommand = oleDbCmd;
-            table = new DataTable();
-            //try 
-            //{
-            oleda.Fill(table);
+            if (conType <= 3)
+            {
+                OleDbDataAdapter oleda = new OleDbDataAdapter();
+                oleda.SelectCommand = oleDbCmd;
+                table = new DataTable();
+                //try 
+                //{
+                oleda.Fill(table);
+            }
+            else
+            {
+                SqlDataAdapter sqlda = new SqlDataAdapter();
+                sqlda.SelectCommand = command;
+                table = new DataTable();
+                sqlda.Fill(table);
+            }
             //}
             //catch( Exception e)
             //{
@@ -113,7 +131,7 @@ namespace DataAccess
                 oleDBBLPrvCn.Open();
             //if (oleDBGLcn.State == ConnectionState.Closed)
             //    oleDBGLcn.Open();
-            //connection.Open();
+            connection.Open();
         }
         public void OpenConnection(string customCon)
         {
@@ -130,6 +148,8 @@ namespace DataAccess
                 oleDBBLPrvCn.Close();
             if (oleDBGLcn.State == ConnectionState.Open)
                 oleDBGLcn.Close();
+            if (connection.State == ConnectionState.Open)
+                connection.Close();
         }
         private void SetDBname()
         {
@@ -257,15 +277,33 @@ namespace DataAccess
             //if (conType == 3)
             //    command.Connection = connection;
             //oleDbCmd.ExecuteNonQuery();
+            if (conType==DBAccess.AUDIT)
+            {
+                command = new SqlCommand();
+                command.CommandText = query;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            }
             CloseConnection();
         }
 
-        
+        public void ExecuteQuery(SqlCommand query, int conType)
+        {
+            OpenConnection();
+            if (conType == DBAccess.AUDIT)
+            {
+                command = new SqlCommand();
+                command = query;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            }
+            CloseConnection();
+        }
 
         //public static async Task ExecuteSavingTransaction(int conType, DataTable dataTable)
         //{
         //    //string connectionString = oledbBLCnStr;
-            
+
         //    using (OleDbConnection connection = new OleDbConnection(connectionString))
         //    {
         //        await connection.OpenAsync();
@@ -295,7 +333,7 @@ namespace DataAccess
         //                    " VALUES ( " + int.Parse(dr["RegNo"].ToString()) + ",'" + dr["RegName"].ToString() + "','"  + dr["Route"].ToString() +"','" +
         //                    dr["ItemName"].ToString() +"'," + double.Parse(dr["Amount"].ToString()) +",' '," + int.Parse(dr["ItemOrder"].ToString()) + "," +
         //                    0 +",'" + dr["MainCategory"].ToString() +"')";
-                       
+
 
         //                // Attempt to commit the transaction.
         //                await command.ExecuteNonQueryAsync();
