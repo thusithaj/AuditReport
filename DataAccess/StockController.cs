@@ -1081,7 +1081,7 @@ namespace DataAccess
 
         public DataTable GetAdvanceDetail( int nSupplier, string DebitAcc)
         {
-            strsql = "SELECT        m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1, m.TrId VoucherNo,m.TrDate [Trn.Data],  m.Amount Advance" +
+            strsql = "SELECT        m.RegNo, r.routeName, r.regName, r.Address, r.PayMode, r.TpNo, r.Phone1, m.TrId VoucherNo,m.TrDate [Trn.Date],  m.Amount Advance" +
                " , r.Fertilizer, r.LMB PrevDebt FROM            Ac_TrMain AS m INNER JOIN  LedgerBl.dbo.Main_Reg AS r ON m.RegNo = r.regNo" +
                " INNER JOIN LedgerBl.dbo.Advance_File A on a.ListId = m.ListId " +
                "   WHERE        (m.trType LIKE '%')  AND m.RegNo = " + nSupplier + " AND A.drAcc Like '" + DebitAcc + "%'" +

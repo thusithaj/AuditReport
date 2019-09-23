@@ -10,6 +10,7 @@ namespace AuditReports
     {
         public static string UserName { get; set; }
         public static bool LoggedStatus { get; set; }
+        public static int UserId { get; set; }
         
     }
 }

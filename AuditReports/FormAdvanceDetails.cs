@@ -148,5 +148,29 @@ namespace AuditReports
         {
             strMonth = String.Format("{0:MMM}", dtFrom.Value);
         }
+
+        private void dgvAdvDetail_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FormAddAudit form = new FormAddAudit();
+            SupplierAuditMaster supplier = new SupplierAuditMaster();
+            supplier.SupplierNo = int.Parse(tbSupNo.Text);
+            supplier.SupplierAddress = tbAddress.Text;
+            supplier.SupplierName = tbName.Text;
+            supplier.SupplierStatus = 1;
+            supplier.SupplierTP01 = tbTPNo1.Text;
+            supplier.SupplierTP02 = tbTpNo2.Text;
+            supplier.PayMode = tbPayMode.Text;
+            supplier.RouteName = tbRoute.Text;
+            SupplierAudit audit = new SupplierAudit();
+            audit.Amount = float.Parse(dgvAdvDetail.Rows[e.RowIndex].Cells["Advance"].Value.ToString()); //Trn.Date
+            audit.TrnDate = DateTime.Parse(dgvAdvDetail.Rows[e.RowIndex].Cells["Trn.Date"].Value.ToString());
+            audit.TrnNumber = dgvAdvDetail.Rows[e.RowIndex].Cells["VoucherNo"].Value.ToString();
+            form.selSupplier = supplier;
+            form.audit = audit;
+            form.Owner = this;
+            
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
+        }
     }
 }

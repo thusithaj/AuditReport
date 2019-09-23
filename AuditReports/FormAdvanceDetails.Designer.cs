@@ -32,6 +32,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tbPayMode = new System.Windows.Forms.TextBox();
+            this.lPM = new System.Windows.Forms.Label();
             this.nBalance = new System.Windows.Forms.NumericUpDown();
             this.nPayAmt = new System.Windows.Forms.NumericUpDown();
             this.lKgs = new System.Windows.Forms.Label();
@@ -56,8 +58,6 @@
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.lPer = new System.Windows.Forms.Label();
             this.dgvAdvDetail = new System.Windows.Forms.DataGridView();
-            this.lPM = new System.Windows.Forms.Label();
-            this.tbPayMode = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -125,6 +125,23 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1143, 111);
             this.panel2.TabIndex = 1;
+            // 
+            // tbPayMode
+            // 
+            this.tbPayMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbPayMode.Location = new System.Drawing.Point(122, 80);
+            this.tbPayMode.Name = "tbPayMode";
+            this.tbPayMode.Size = new System.Drawing.Size(162, 20);
+            this.tbPayMode.TabIndex = 31;
+            // 
+            // lPM
+            // 
+            this.lPM.AutoSize = true;
+            this.lPM.Location = new System.Drawing.Point(21, 83);
+            this.lPM.Name = "lPM";
+            this.lPM.Size = new System.Drawing.Size(75, 13);
+            this.lPM.TabIndex = 30;
+            this.lPM.Text = "Pay Mode : ";
             // 
             // nBalance
             // 
@@ -395,27 +412,13 @@
             // 
             this.dgvAdvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAdvDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAdvDetail.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvAdvDetail.Location = new System.Drawing.Point(3, 120);
             this.dgvAdvDetail.Name = "dgvAdvDetail";
+            this.dgvAdvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAdvDetail.Size = new System.Drawing.Size(1143, 327);
             this.dgvAdvDetail.TabIndex = 1;
-            // 
-            // lPM
-            // 
-            this.lPM.AutoSize = true;
-            this.lPM.Location = new System.Drawing.Point(21, 83);
-            this.lPM.Name = "lPM";
-            this.lPM.Size = new System.Drawing.Size(75, 13);
-            this.lPM.TabIndex = 30;
-            this.lPM.Text = "Pay Mode : ";
-            // 
-            // tbPayMode
-            // 
-            this.tbPayMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPayMode.Location = new System.Drawing.Point(122, 80);
-            this.tbPayMode.Name = "tbPayMode";
-            this.tbPayMode.Size = new System.Drawing.Size(162, 20);
-            this.tbPayMode.TabIndex = 31;
+            this.dgvAdvDetail.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdvDetail_CellContentDoubleClick);
             // 
             // FormAdvanceDetails
             // 

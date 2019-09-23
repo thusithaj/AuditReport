@@ -64,6 +64,7 @@ namespace AuditReports
                     {
                         RuntimeDefaults.UserName = user.UserName;
                         RuntimeDefaults.LoggedStatus = true;
+                        RuntimeDefaults.UserId = user.id;
                         this.Close(); 
                     }
                     else
@@ -118,6 +119,11 @@ namespace AuditReports
         private void bCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tbUID_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
