@@ -120,5 +120,15 @@ namespace AuditReports
             childform.MdiParent = this;
             childform.Show();
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formAuditPrint form = new formAuditPrint();
+            form.ShowSingle = false;
+            form.supplier = null;
+            form.Owner = this;
+            form.WindowState = FormWindowState.Maximized;
+            form.Show();
+        }
     }
 }

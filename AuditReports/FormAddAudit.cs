@@ -34,12 +34,16 @@ namespace AuditReports
             if (auditEntry.supplierAudits.Count > 0)
             {
                 SupplierAudit auditTemp = auditEntry.supplierAudits.Where(o => o.TrnNumber.Trim() == audit.TrnNumber).FirstOrDefault();
-                tbComment.Text = auditTemp.Remarks;
-                audit.Remarks = auditTemp.Remarks;
-                audit.id = auditTemp.id;
+                if (auditTemp != null)
+                {
+                    tbComment.Text = auditTemp.Remarks;
+                    audit.Remarks = auditTemp.Remarks;
+                    audit.id = auditTemp.id;
+                    isEdit = true;
+                    isNew = false;
+                }
                 dgvAC.DataSource = auditEntry.supplierAudits.ToList();
-                isEdit = true;
-                isNew = false;
+                
                 
             }
             
@@ -151,6 +155,16 @@ namespace AuditReports
 
             }
 
+        }
+
+        private void bPrint_Click(object sender, EventArgs e)
+        {
+            formAuditPrint form = new formAuditPrint();
+            form.supplier = auditEntry.supplier;
+            form.ShowSingle = true;
+            form.Owner = this;
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
         }
 
         private void bClose_Click(object sender, EventArgs e)

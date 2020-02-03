@@ -91,6 +91,18 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="AuditDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AuditReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="AuditReports.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +126,12 @@
     </Compile>
     <Compile Include="FormAdvAudit.Designer.cs">
       <DependentUpon>FormAdvAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formAuditPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAuditPrint.Designer.cs">
+      <DependentUpon>formAuditPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="FormChangePayMode.cs">
       <SubType>Form</SubType>
@@ -159,6 +177,11 @@
       <LastGenOutput>AdvanceAuditSummary.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="AuditReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AuditReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="FormAddAudit.resx">
       <DependentUpon>FormAddAudit.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAdvAudit.resx">
       <DependentUpon>FormAdvAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAuditPrint.resx">
+      <DependentUpon>formAuditPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormChangePayMode.resx">
       <DependentUpon>FormChangePayMode.cs</DependentUpon>
@@ -193,6 +219,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="AuditDataSet.xsc">
+      <DependentUpon>AuditDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AuditDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AuditDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AuditDataSet.xss">
+      <DependentUpon>AuditDataSet.xsd</DependentUpon>
+    </None>
     <None Include="AuditReports.xsc">
       <DependentUpon>AuditReports.xsd</DependentUpon>
     </None>

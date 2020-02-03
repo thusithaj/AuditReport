@@ -26,6 +26,8 @@ namespace AuditReports
         public int ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+        
+
     }
     public class SupplierAudit
     {
@@ -78,6 +80,8 @@ namespace AuditReports
                 sqlcmd.Parameters.Add("@CreatedBy", SqlDbType.Int).Value = supplier.CreatedBy;
                 sqlcmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = supplier.CreatedDate;
                 dB.ExecuteQuery(sqlcmd, DBAccess.AUDIT);
+                sql = "Select * from SupplierAuditMaster Where SupplierNo =" + supplier.SupplierNo;
+                table = dB.GetDataTable(sql, DBAccess.AUDIT);
 
             }
             
@@ -86,17 +90,20 @@ namespace AuditReports
                 "	@CreatedBy,	@CreatedDate)";
             foreach (SupplierAudit audit in supplierAudits)
             {
-                audit.SupplierId =int.Parse( table.Rows[0]["id"].ToString());
-                sqlcmd = new SqlCommand(sql);
-                sqlcmd.Parameters.Add("@SupplierId", SqlDbType.Int).Value = audit.SupplierId;
-                sqlcmd.Parameters.Add("@TrnDate", SqlDbType.Date).Value = audit.TrnDate;
-                sqlcmd.Parameters.Add("@Amount", SqlDbType.Float).Value = audit.Amount;
-                sqlcmd.Parameters.Add("@Remarks", SqlDbType.NChar).Value = audit.Remarks;
-                sqlcmd.Parameters.Add("@LineStatus", SqlDbType.Int).Value = audit.LineStatus;
-                sqlcmd.Parameters.Add("@TrnNumber", SqlDbType.NChar).Value = audit.TrnNumber;
-                sqlcmd.Parameters.Add("@CreatedBy", SqlDbType.Int).Value = audit.CreatedBy;
-                sqlcmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = audit.CreatedDate;
-                dB.ExecuteQuery(sqlcmd, DBAccess.AUDIT);
+                if (audit.id == 0)
+                {
+                    audit.SupplierId = int.Parse(table.Rows[0]["id"].ToString());
+                    sqlcmd = new SqlCommand(sql);
+                    sqlcmd.Parameters.Add("@SupplierId", SqlDbType.Int).Value = audit.SupplierId;
+                    sqlcmd.Parameters.Add("@TrnDate", SqlDbType.Date).Value = audit.TrnDate;
+                    sqlcmd.Parameters.Add("@Amount", SqlDbType.Float).Value = audit.Amount;
+                    sqlcmd.Parameters.Add("@Remarks", SqlDbType.NChar).Value = audit.Remarks;
+                    sqlcmd.Parameters.Add("@LineStatus", SqlDbType.Int).Value = audit.LineStatus;
+                    sqlcmd.Parameters.Add("@TrnNumber", SqlDbType.NChar).Value = audit.TrnNumber;
+                    sqlcmd.Parameters.Add("@CreatedBy", SqlDbType.Int).Value = audit.CreatedBy;
+                    sqlcmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = audit.CreatedDate;
+                    dB.ExecuteQuery(sqlcmd, DBAccess.AUDIT);
+                }
             }
         }
         public void GetAuditEntry()
@@ -136,6 +143,44 @@ namespace AuditReports
                 sqlcmd.Parameters.Add("@ModifiedDate", SqlDbType.DateTime).Value =DateTime.Now;
                 dB.ExecuteQuery(sqlcmd, DBAccess.AUDIT);
             }
+        }
+        public List<SupplierAuditMaster> GetSupplierAuditMasters()
+        {
+            List<SupplierAuditMaster> suppliers = new List<SupplierAuditMaster>();
+            sql = " Select * from SupplierAUditMaster";
+            //SqlCommand sqlcmd = new SqlCommand(sql);
+            dB = new DBAccess();
+
+            DataTable suptable = dB.GetDataTable(sql, DBAccess.AUDIT);
+            SupplierAuditMaster all = new SupplierAuditMaster();
+            all.SupplierName = "All";
+            all.id = -1;
+            suppliers.Add(all);
+            foreach( DataRow dr in suptable.Rows)
+            {
+                SupplierAuditMaster master = new SupplierAuditMaster();
+                master.id = int.Parse(dr["id"].ToString());
+                master.SupplierName = dr["SupplierName"].ToString();
+                master.SupplierAddress = dr["SupplierAddress"].ToString();
+                master.SupplierNo = int.Parse(dr["SupplierNo"].ToString());
+                master.SupplierTP01 = dr["SupplierTP01"].ToString();
+                master.SupplierTP02 = dr["SupplierTP02"].ToString();
+                master.PayMode = dr["PayMode"].ToString();
+                master.RouteName = dr["RouteName"].ToString();
+                master.SupplierStatus = int.Parse( dr["SupplierStatus"].ToString());
+                suppliers.Add(master);
+            }
+            dB = null;
+            return suppliers;
+        }
+        public DataTable GetAuditReport( SupplierAuditMaster supplier)
+        {
+            if (supplier == null)
+                sql = "Select * from SupplierAUditMaster m inner join SupplierAuditDetail d on m.id = d.SupplierId";
+            else
+                sql = "Select * from SupplierAUditMaster m inner join SupplierAuditDetail d on m.id = d.SupplierId where m.SupplierNo = " + supplier.SupplierNo;
+            dB = new DBAccess();
+            return dB.GetDataTable(sql, DBAccess.AUDIT);
         }
     }
 

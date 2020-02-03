@@ -130,6 +130,7 @@
             this.bPrint.TabIndex = 3;
             this.bPrint.Text = "Print Audit";
             this.bPrint.UseVisualStyleBackColor = true;
+            this.bPrint.Click += new System.EventHandler(this.bPrint_Click);
             // 
             // bClose
             // 
