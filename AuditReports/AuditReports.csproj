@@ -108,6 +108,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AuditReports.xsd</DependentUpon>
     </Compile>
+    <Compile Include="BLAnalysis.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLAnalysis.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EncodeSHA.cs" />
     <Compile Include="FormAddAudit.cs">
       <SubType>Form</SubType>
@@ -151,11 +156,31 @@
     <Compile Include="FormInquiry.Designer.cs">
       <DependentUpon>FormInquiry.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLeafAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLeafAnalysis.Designer.cs">
+      <DependentUpon>FormLeafAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormUserLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormUserLogin.Designer.cs">
       <DependentUpon>FormUserLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LeafAnalysis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LeafAnalysis.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="LeafAnalysis2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LeafAnalysis2.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="MasterForm.cs">
       <SubType>Form</SubType>
@@ -203,9 +228,22 @@
     <EmbeddedResource Include="FormInquiry.resx">
       <DependentUpon>FormInquiry.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormLeafAnalysis.resx">
+      <DependentUpon>FormLeafAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormUserLogin.resx">
       <DependentUpon>FormUserLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="LeafAnalysis.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LeafAnalysis.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LeafAnalysis2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>LeafAnalysis2.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="MasterForm.resx">
       <DependentUpon>MasterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +278,17 @@
     </None>
     <None Include="AuditReports.xss">
       <DependentUpon>AuditReports.xsd</DependentUpon>
+    </None>
+    <None Include="BLAnalysis.xsc">
+      <DependentUpon>BLAnalysis.xsd</DependentUpon>
+    </None>
+    <None Include="BLAnalysis.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BLAnalysis.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="BLAnalysis.xss">
+      <DependentUpon>BLAnalysis.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

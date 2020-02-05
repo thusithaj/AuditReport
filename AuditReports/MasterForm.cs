@@ -126,7 +126,15 @@ namespace AuditReports
             formAuditPrint form = new formAuditPrint();
             form.ShowSingle = false;
             form.supplier = null;
-            form.Owner = this;
+            form.MdiParent = this;
+            form.WindowState = FormWindowState.Maximized;
+            form.Show();
+        }
+
+        private void leafAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormLeafAnalysis form = new FormLeafAnalysis();
+            form.MdiParent = this;
             form.WindowState = FormWindowState.Maximized;
             form.Show();
         }

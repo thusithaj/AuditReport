@@ -26,11 +26,22 @@ namespace AuditReports.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\mssql2017;Initial Catalog=AuditLog;Persist Security Info=True;User " +
-            "ID=sa;Password=sa@123")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.22;Initial Catalog=AuditLog;Persist Security Info=True;User" +
+            " ID=sa;Password=sa@123")]
         public string AuditLogConnectionString {
             get {
                 return ((string)(this["AuditLogConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB;Data Source=192.168.1.100;Persist Security Info=True;Password=+" +
+            "940777490860;User ID=sa;Initial Catalog=LedgerBL")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
             }
         }
     }

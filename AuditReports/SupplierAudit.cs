@@ -182,6 +182,19 @@ namespace AuditReports
             dB = new DBAccess();
             return dB.GetDataTable(sql, DBAccess.AUDIT);
         }
+        /// <summary>
+        /// This method will get yrs as a comma separated values
+        /// </summary>
+        /// <param name="yrs"> Comma separated values</param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public DataTable GetLeafAnalysis ( string yrs, int month)
+        {
+            sql = "Select Year(trDate) trnYear, Month(TrDate) TrnMonth,trDate, Route, RegNo,Name, Qty From Collection_tbl" +
+                " WHere Year(trDate) in (" + yrs + ") AND month(trDate)= " + month + " Order by Year(trDate),Month(trDate),Day(trDate)";
+            dB = new DBAccess();
+            return dB.GetDataTable(sql, DBAccess.BoughtLeaf);
+        }
     }
 
     
